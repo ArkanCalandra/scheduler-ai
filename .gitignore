@@ -1,0 +1,15 @@
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+*.iml
+
+# Environment - JANGAN DI-COMMIT
+.env
+
+# IDE
+.idea/
+.vscode/
+*.log
+NO_PUSH!.txt
