@@ -10,7 +10,7 @@ class NotificationService {
   static Future<void> init() async {
 
     const androidSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('@drawable/ic_notification');
     const iosSettings = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
@@ -91,6 +91,7 @@ class NotificationService {
             importance: Importance.max,
             priority: Priority.high,
             playSound: true,
+            icon: 'ic_notification',
           ),
           iOS: DarwinNotificationDetails(),
           macOS: DarwinNotificationDetails(),
@@ -116,6 +117,7 @@ class NotificationService {
               importance: Importance.max,
               priority: Priority.high,
               playSound: true,
+              icon: 'ic_notification',
             ),
             iOS: DarwinNotificationDetails(),
             macOS: DarwinNotificationDetails(),

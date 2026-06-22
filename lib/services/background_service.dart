@@ -30,13 +30,13 @@ void onStart(ServiceInstance service) async {
       if (await service.isForegroundService()) {
         flutterLocalNotificationsPlugin.show(
           888,
-          'VEXRA',
+          'Scheduler Aktif',
           'Sistem penjadwalan berjalan di latar belakang.',
           const NotificationDetails(
             android: AndroidNotificationDetails(
               'scheduler_bg_service',
               'Status Layanan Latar Belakang',
-              icon: 'ic_bg_service_small',
+              icon: 'ic_notification',
               ongoing: true,
               importance: Importance.min,
               priority: Priority.min,
@@ -75,6 +75,7 @@ class BackgroundService {
         notificationChannelId: 'scheduler_bg_service',
         initialNotificationTitle: 'Scheduler Aktif',
         initialNotificationContent: 'Menjaga alarm dan pengingat tetap hidup.',
+        initialNotificationIcon: 'ic_notification',
         foregroundServiceNotificationId: 888,
       ),
       iosConfiguration: IosConfiguration(
