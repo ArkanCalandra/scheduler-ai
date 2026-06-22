@@ -75,7 +75,6 @@ class BackgroundService {
         notificationChannelId: 'scheduler_bg_service',
         initialNotificationTitle: 'Scheduler Aktif',
         initialNotificationContent: 'Menjaga alarm dan pengingat tetap hidup.',
-        initialNotificationIcon: 'ic_notification',
         foregroundServiceNotificationId: 888,
       ),
       iosConfiguration: IosConfiguration(
