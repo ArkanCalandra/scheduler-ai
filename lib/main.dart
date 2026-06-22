@@ -167,11 +167,6 @@ class SchedulerApp extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Opacity(
-                        opacity: 0.2,
-                        child: Image.asset('logo.png', width: 14, height: 14, fit: BoxFit.contain),
-                      ),
-                      const SizedBox(width: 6),
                       const Opacity(
                         opacity: 0.2,
                         child: Text(

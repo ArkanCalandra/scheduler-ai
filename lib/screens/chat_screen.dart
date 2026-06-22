@@ -412,7 +412,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   shape: BoxShape.circle,
                 ),
                 child: ClipOval(
-                  child: Image.asset('icon.png', fit: BoxFit.cover),
+                  child: Image.asset('logo.png', fit: BoxFit.cover),
                 ),
               ),
             ),

@@ -73,7 +73,7 @@ class BackgroundService {
         autoStart: true,
         isForegroundMode: true,
         notificationChannelId: 'scheduler_bg_service',
-        initialNotificationTitle: 'VEXRA Aktif',
+        initialNotificationTitle: 'Scheduler Aktif',
         initialNotificationContent: 'Menjaga alarm dan pengingat tetap hidup.',
         foregroundServiceNotificationId: 888,
       ),

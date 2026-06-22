@@ -86,8 +86,8 @@ class NotificationService {
         const NotificationDetails(
           android: AndroidNotificationDetails(
             'scheduler_channel',
-            'VEXRA Reminders',
-            channelDescription: 'Reminder dari VEXRA',
+            'Scheduler Reminders',
+            channelDescription: 'Reminder dari Scheduler',
             importance: Importance.max,
             priority: Priority.high,
             playSound: true,
@@ -111,8 +111,8 @@ class NotificationService {
           const NotificationDetails(
             android: AndroidNotificationDetails(
               'scheduler_channel',
-              'VEXRA Reminders',
-              channelDescription: 'Reminder dari VEXRA',
+              'Scheduler Reminders',
+              channelDescription: 'Reminder dari Scheduler',
               importance: Importance.max,
               priority: Priority.high,
               playSound: true,
