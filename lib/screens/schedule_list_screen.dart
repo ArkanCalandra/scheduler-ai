@@ -53,17 +53,17 @@ class _ScheduleListScreenState extends State<ScheduleListScreen> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: const Color(0xFF1A1A2E),
+        backgroundColor: const Color(0xFF0F0F13),
         appBar: AppBar(
-          backgroundColor: const Color(0xFF16213E),
+          backgroundColor: const Color(0xFF0F0F13),
           title: const Text(
             'Daftar Jadwal',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           iconTheme: const IconThemeData(color: Colors.white),
           bottom: const TabBar(
-            indicatorColor: Color(0xFF6C63FF),
-            labelColor: Color(0xFF6C63FF),
+            indicatorColor: Color(0xFF00E5FF),
+            labelColor: Color(0xFF00E5FF),
             unselectedLabelColor: Colors.white54,
             tabs: [
               Tab(text: 'Mendatang'),
@@ -73,7 +73,7 @@ class _ScheduleListScreenState extends State<ScheduleListScreen> {
           actions: [
             if (_upcoming.isNotEmpty || _past.isNotEmpty)
               IconButton(
-                icon: const Icon(Icons.delete_sweep, color: Colors.redAccent),
+                icon: const Icon(Icons.delete_sweep_rounded, color: Colors.redAccent),
                 tooltip: 'Hapus semua',
                 onPressed: _confirmDeleteAll,
               ),
@@ -114,8 +114,8 @@ class _ScheduleListScreenState extends State<ScheduleListScreen> {
     final now = DateTime.now();
     final diff = s.scheduledTime.difference(now);
     
-    final accentColor = isPast ? Colors.grey : const Color(0xFF6C63FF);
-    final borderColor = isPast ? Colors.white12 : const Color(0xFF6C63FF).withOpacity(0.3);
+    final accentColor = isPast ? Colors.grey : const Color(0xFF00E5FF);
+    final borderColor = isPast ? Colors.white12 : Colors.white.withOpacity(0.05);
     final titleStyle = TextStyle(
       color: isPast ? Colors.white38 : Colors.white,
       fontWeight: FontWeight.w600,
@@ -125,21 +125,29 @@ class _ScheduleListScreenState extends State<ScheduleListScreen> {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: const Color(0xFF16213E),
-        borderRadius: BorderRadius.circular(16),
+        color: const Color(0xFF1C1C22),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(color: borderColor),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         leading: Container(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: accentColor.withOpacity(0.15),
             shape: BoxShape.circle,
           ),
           child: Icon(
-            isPast ? Icons.notifications_none : Icons.notifications_active,
+            isPast ? Icons.notifications_none_rounded : Icons.notifications_active_rounded,
             color: accentColor,
+            size: 20,
           ),
         ),
         title: Row(
@@ -206,7 +214,7 @@ class _ScheduleListScreenState extends State<ScheduleListScreen> {
   void _confirmDelete(ScheduleModel s) => showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          backgroundColor: const Color(0xFF16213E),
+          backgroundColor: const Color(0xFF1C1C22),
           title: const Text('Hapus reminder?', style: TextStyle(color: Colors.white)),
           content: Text('"${s.title}"', style: const TextStyle(color: Colors.white70)),
           actions: [
@@ -222,7 +230,7 @@ class _ScheduleListScreenState extends State<ScheduleListScreen> {
   void _confirmDeleteAll() => showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          backgroundColor: const Color(0xFF16213E),
+          backgroundColor: const Color(0xFF1C1C22),
           title: const Text('Hapus semua?', style: TextStyle(color: Colors.white)),
           content: const Text('Semua reminder akan dihapus.',
               style: TextStyle(color: Colors.white70)),

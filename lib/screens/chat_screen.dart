@@ -360,7 +360,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A2E),
+      backgroundColor: const Color(0xFF0F0F13),
       appBar: _buildAppBar(),
       body: Column(
         children: [
@@ -383,36 +383,70 @@ class _ChatScreenState extends State<ChatScreen> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: const Color(0xFF16213E),
+      backgroundColor: const Color(0xFF0F0F13),
       title: Row(
         children: [
           Container(
-            width: 36,
-            height: 36,
+            width: 38,
+            height: 38,
             decoration: BoxDecoration(
-              color: const Color(0xFF6C63FF).withOpacity(0.2),
+              gradient: const LinearGradient(
+                colors: [Color(0xFF6C63FF), Color(0xFF00E5FF)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
               shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF00E5FF).withOpacity(0.3),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
-            child: ClipOval(
-              child: Image.asset('logo.png', width: 20, height: 20, fit: BoxFit.contain),
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Color(0xFF1C1C22),
+                  shape: BoxShape.circle,
+                ),
+                child: ClipOval(
+                  child: Image.asset('icon.png', fit: BoxFit.cover),
+                ),
+              ),
             ),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('VEXRA',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+              const Text('Scheduler',
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18, letterSpacing: 0.5)),
               StreamBuilder<bool>(
                 stream: ConnectivityService.onlineStream,
                 builder: (context, snapshot) {
                   final isOnline = snapshot.data ?? false;
-                  return Text(
-                    isOnline ? 'Online AI by VEXRA Tech' : 'Offline AI by VEXRA Tech',
-                    style: TextStyle(
-                      color: isOnline ? Colors.greenAccent : Colors.orangeAccent,
-                      fontSize: 12,
-                    ),
+                  return Row(
+                    children: [
+                      Container(
+                        width: 6,
+                        height: 6,
+                        margin: const EdgeInsets.only(right: 4),
+                        decoration: BoxDecoration(
+                          color: isOnline ? Colors.greenAccent : Colors.orangeAccent,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      Text(
+                        isOnline ? 'Online AI by VEXRA Tech' : 'Offline AI by VEXRA Tech',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.6),
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   );
                 },
               ),
@@ -422,7 +456,7 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       actions: [
         IconButton(
-          icon: const Icon(Icons.settings, color: Colors.white70),
+          icon: const Icon(Icons.settings_outlined, color: Colors.white70),
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => const SettingsScreen()),
@@ -430,7 +464,7 @@ class _ChatScreenState extends State<ChatScreen> {
           tooltip: 'Pengaturan',
         ),
         IconButton(
-          icon: const Icon(Icons.calendar_month, color: Colors.white70),
+          icon: const Icon(Icons.calendar_month_outlined, color: Colors.white70),
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => const ScheduleListScreen()),
@@ -449,29 +483,36 @@ class _ChatScreenState extends State<ChatScreen> {
     if (isUser) {
       bubbleColor = const Color(0xFF6C63FF);
     } else if (msg.type == MessageType.scheduleCreated) {
-      bubbleColor = const Color(0xFF1B4332);
+      bubbleColor = const Color(0xFF1C2D27); // Darker elegant green
     } else if (msg.type == MessageType.error) {
       bubbleColor = const Color(0xFF3B1A1A);
     } else {
-      bubbleColor = const Color(0xFF16213E);
+      bubbleColor = const Color(0xFF1C1C22); // Premium dark card
     }
 
     return Align(
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 4),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.78),
         decoration: BoxDecoration(
           color: bubbleColor,
           borderRadius: BorderRadius.only(
-            topLeft: const Radius.circular(18),
-            topRight: const Radius.circular(18),
-            bottomLeft: Radius.circular(isUser ? 18 : 4),
-            bottomRight: Radius.circular(isUser ? 4 : 18),
+            topLeft: const Radius.circular(20),
+            topRight: const Radius.circular(20),
+            bottomLeft: Radius.circular(isUser ? 20 : 6),
+            bottomRight: Radius.circular(isUser ? 6 : 20),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
           border: msg.type == MessageType.scheduleCreated
-              ? Border.all(color: Colors.greenAccent.withOpacity(0.3))
+              ? Border.all(color: Colors.greenAccent.withOpacity(0.4), width: 0.5)
               : null,
         ),
         child: Column(
@@ -479,24 +520,24 @@ class _ChatScreenState extends State<ChatScreen> {
           children: [
             if (msg.type == MessageType.scheduleCreated)
               Padding(
-                padding: const EdgeInsets.only(bottom: 4),
+                padding: const EdgeInsets.only(bottom: 6),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: const [
-                    Icon(Icons.check_circle, color: Colors.greenAccent, size: 14),
-                    SizedBox(width: 4),
+                    Icon(Icons.check_circle_outline, color: Colors.greenAccent, size: 16),
+                    SizedBox(width: 6),
                     Text('Reminder dibuat!',
-                        style: TextStyle(color: Colors.greenAccent, fontSize: 12, fontWeight: FontWeight.bold)),
+                        style: TextStyle(color: Colors.greenAccent, fontSize: 13, fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),
-            Text(msg.text, style: const TextStyle(color: Colors.white, fontSize: 15)),
-            const SizedBox(height: 4),
+            Text(msg.text, style: const TextStyle(color: Colors.white, fontSize: 15, height: 1.3)),
+            const SizedBox(height: 6),
             Align(
               alignment: Alignment.bottomRight,
               child: Text(
                 DateFormat('HH:mm').format(msg.time),
-                style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 11),
+                style: TextStyle(color: Colors.white.withOpacity(0.35), fontSize: 10, fontWeight: FontWeight.w500),
               ),
             ),
           ],
@@ -509,11 +550,18 @@ class _ChatScreenState extends State<ChatScreen> {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 4),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
-          color: const Color(0xFF16213E),
-          borderRadius: BorderRadius.circular(18),
+          color: const Color(0xFF1C1C22),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -529,8 +577,8 @@ class _ChatScreenState extends State<ChatScreen> {
       duration: Duration(milliseconds: 600 + index * 200),
       builder: (_, v, __) => Container(
         margin: const EdgeInsets.symmetric(horizontal: 3),
-        width: 8,
-        height: 8,
+        width: 6,
+        height: 6,
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.3 + v * 0.5),
           shape: BoxShape.circle,
@@ -541,8 +589,17 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget _buildInputBar() {
     return Container(
-      color: const Color(0xFF16213E),
-      padding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 24), // Added bottom padding for modern notch devices
+      decoration: BoxDecoration(
+        color: const Color(0xFF0F0F13),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            blurRadius: 10,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
       child: Row(
         children: [
           // Tombol tambah manual
@@ -555,45 +612,59 @@ class _ChatScreenState extends State<ChatScreen> {
               // manual addition shows its own snackbar now, no need to add bot message
             },
             child: Container(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: const Color(0xFF0F3460),
-                borderRadius: BorderRadius.circular(12),
+                color: const Color(0xFF1C1C22),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.white.withOpacity(0.05)),
               ),
               child: const Icon(Icons.add, color: Colors.white70, size: 22),
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 12),
           Expanded(
-            child: TextField(
-              controller: _controller,
-              style: const TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                hintText: 'Ketik jadwal lo...',
-                hintStyle: TextStyle(color: Colors.white.withOpacity(0.35), fontSize: 14),
-                filled: true,
-                fillColor: const Color(0xFF0F3460),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(24),
-                  borderSide: BorderSide.none,
-                ),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFF1C1C22),
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(color: Colors.white.withOpacity(0.05)),
               ),
-              onSubmitted: (_) => _handleSend(),
-              textInputAction: TextInputAction.send,
-              enabled: true,
+              child: TextField(
+                controller: _controller,
+                style: const TextStyle(color: Colors.white, fontSize: 15),
+                decoration: InputDecoration(
+                  hintText: 'Ketik jadwal lo...',
+                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.3), fontSize: 14),
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                ),
+                onSubmitted: (_) => _handleSend(),
+                textInputAction: TextInputAction.send,
+                enabled: true,
+              ),
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 12),
           GestureDetector(
             onTap: _handleSend,
             child: Container(
-              padding: const EdgeInsets.all(12),
-              decoration: const BoxDecoration(
-                color: Color(0xFF6C63FF),
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF6C63FF), Color(0xFF00E5FF)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
                 shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF6C63FF).withOpacity(0.4),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
-              child: const Icon(Icons.send, color: Colors.white, size: 20),
+              child: const Icon(Icons.send_rounded, color: Colors.white, size: 20),
             ),
           ),
         ],

@@ -48,7 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF16213E),
+        backgroundColor: const Color(0xFF1C1C22),
         title: const Text('Hapus Semua Jadwal?', style: TextStyle(color: Colors.white)),
         content: const Text('Semua jadwal dan alarm yang aktif akan dihapus permanen. Lanjutkan?', style: TextStyle(color: Colors.white70)),
         actions: [
@@ -78,9 +78,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A2E),
+      backgroundColor: const Color(0xFF0F0F13),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF16213E),
+        backgroundColor: const Color(0xFF0F0F13),
         title: const Text('Pengaturan', style: TextStyle(color: Colors.white)),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -127,15 +127,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
             SizedBox(
               width: double.infinity,
-              height: 52,
-              child: ElevatedButton(
-                onPressed: _saveSettings,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF6C63FF),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              height: 54,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF6C63FF), Color(0xFF00E5FF)],
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF00E5FF).withOpacity(0.3),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
-                child: const Text('Simpan Pengaturan',
-                    style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                child: ElevatedButton(
+                  onPressed: _saveSettings,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  ),
+                  child: const Text('Simpan Pengaturan',
+                      style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 0.5)),
+                ),
               ),
             ),
             const SizedBox(height: 40),
@@ -160,7 +176,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _sectionTitle(String text, {Color color = const Color(0xFF6C63FF)}) {
+  Widget _sectionTitle(String text, {Color color = const Color(0xFF00E5FF)}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Text(text, style: TextStyle(color: color, fontSize: 18, fontWeight: FontWeight.bold)),
@@ -180,28 +196,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
           hintText: hint,
           hintStyle: TextStyle(color: Colors.white.withOpacity(0.3)),
           filled: true,
-          fillColor: const Color(0xFF16213E),
+          fillColor: const Color(0xFF1C1C22),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(color: Colors.white.withOpacity(0.05)),
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(color: Colors.white.withOpacity(0.05)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(color: Color(0xFF00E5FF)),
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         ),
       );
 
   Widget _dropdown<T>({required T value, required List<DropdownMenuItem<T>> items, required ValueChanged<T?> onChanged}) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       decoration: BoxDecoration(
-        color: const Color(0xFF16213E),
-        borderRadius: BorderRadius.circular(12),
+        color: const Color(0xFF1C1C22),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white.withOpacity(0.05)),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<T>(
           value: value,
-          dropdownColor: const Color(0xFF16213E),
+          dropdownColor: const Color(0xFF1C1C22),
           style: const TextStyle(color: Colors.white, fontSize: 15),
-          icon: const Icon(Icons.keyboard_arrow_down, color: Color(0xFF6C63FF)),
+          icon: const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.white54),
           isExpanded: true,
           items: items,
           onChanged: onChanged,

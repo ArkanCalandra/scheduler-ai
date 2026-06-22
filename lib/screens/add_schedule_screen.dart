@@ -60,11 +60,11 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
       context: context,
       builder: (ctx) => Container(
         height: 300,
-        color: const Color(0xFF16213E),
+        color: const Color(0xFF1C1C22),
         child: Column(
           children: [
             Container(
-              color: const Color(0xFF0F3460),
+              color: const Color(0xFF0F0F13),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -73,7 +73,7 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
                     child: Text('Pilih Jam', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold, decoration: TextDecoration.none)),
                   ),
                   CupertinoButton(
-                    child: const Text('Selesai', style: TextStyle(color: Color(0xFF6C63FF))),
+                    child: const Text('Selesai', style: TextStyle(color: Color(0xFF00E5FF))),
                     onPressed: () => Navigator.of(ctx).pop(),
                   )
                 ],
@@ -132,14 +132,14 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
           showDialog(
             context: context,
             builder: (_) => AlertDialog(
-              backgroundColor: const Color(0xFF16213E),
+              backgroundColor: const Color(0xFF1C1C22),
               title: const Text('Waktu Bentrok', style: TextStyle(color: Colors.white)),
               content: Text('Jam segini udah ada jadwal "${s.title}". Silakan pilih menit atau jam lain ya!',
                   style: const TextStyle(color: Colors.white70)),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Tutup', style: TextStyle(color: Color(0xFF6C63FF))),
+                  child: const Text('Tutup', style: TextStyle(color: Color(0xFF00E5FF))),
                 ),
               ],
             ),
@@ -185,9 +185,9 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A2E),
+      backgroundColor: const Color(0xFF0F0F13),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF16213E),
+        backgroundColor: const Color(0xFF0F0F13),
         title: const Text('Tambah Jadwal', style: TextStyle(color: Colors.white)),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -208,7 +208,7 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
               children: [
                 Expanded(
                   child: _dateTimeCard(
-                    icon: Icons.calendar_today,
+                    icon: Icons.calendar_today_rounded,
                     label: DateFormat('EEE, d MMM yyyy').format(_selectedDate),
                     onTap: _pickDate,
                   ),
@@ -216,7 +216,7 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: _dateTimeCard(
-                    icon: Icons.access_time,
+                    icon: Icons.access_time_rounded,
                     label: DateFormat('HH:mm').format(_selectedDate),
                     onTap: _pickTime,
                   ),
@@ -229,16 +229,16 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                color: const Color(0xFF16213E),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFF6C63FF).withOpacity(0.3)),
+                color: const Color(0xFF1C1C22),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.white.withOpacity(0.05)),
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<int>(
                   value: _preAlarmMinutes,
-                  dropdownColor: const Color(0xFF16213E),
-                  style: const TextStyle(color: Colors.white, fontSize: 13),
-                  icon: const Icon(Icons.keyboard_arrow_down, color: Color(0xFF6C63FF)),
+                  dropdownColor: const Color(0xFF1C1C22),
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
+                  icon: const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.white54),
                   isExpanded: true,
                   items: const [
                     DropdownMenuItem(value: 0, child: Text('Tepat Waktu (0 menit)')),
@@ -256,17 +256,33 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
             const SizedBox(height: 32),
             SizedBox(
               width: double.infinity,
-              height: 52,
-              child: ElevatedButton(
-                onPressed: _saving ? null : _save,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF6C63FF),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              height: 54,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF6C63FF), Color(0xFF00E5FF)],
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF00E5FF).withOpacity(0.3),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
-                child: _saving
-                    ? const CircularProgressIndicator(color: Colors.white)
-                    : const Text('Simpan Reminder',
-                        style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                child: ElevatedButton(
+                  onPressed: _saving ? null : _save,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  ),
+                  child: _saving
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text('Simpan Reminder',
+                          style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 0.5)),
+                ),
               ),
             ),
           ],
@@ -289,12 +305,20 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
           hintText: hint,
           hintStyle: TextStyle(color: Colors.white.withOpacity(0.3)),
           filled: true,
-          fillColor: const Color(0xFF16213E),
+          fillColor: const Color(0xFF1C1C22),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(color: Colors.white.withOpacity(0.05)),
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(color: Colors.white.withOpacity(0.05)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(color: Color(0xFF00E5FF)),
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         ),
       );
 
@@ -302,19 +326,19 @@ class _AddScheduleScreenState extends State<AddScheduleScreen> {
       GestureDetector(
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
           decoration: BoxDecoration(
-            color: const Color(0xFF16213E),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: const Color(0xFF6C63FF).withOpacity(0.3)),
+            color: const Color(0xFF1C1C22),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Colors.white.withOpacity(0.05)),
           ),
           child: Row(
             children: [
-              Icon(icon, color: const Color(0xFF6C63FF), size: 18),
-              const SizedBox(width: 8),
+              Icon(icon, color: const Color(0xFF00E5FF), size: 18),
+              const SizedBox(width: 10),
               Expanded(
                 child: Text(label,
-                    style: const TextStyle(color: Colors.white, fontSize: 13),
+                    style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
                     overflow: TextOverflow.ellipsis),
               ),
             ],

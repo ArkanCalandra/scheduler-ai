@@ -66,7 +66,7 @@ void main() async {
   }
 
   GeminiService.init();
-  runApp(const VexraApp());
+  runApp(const SchedulerApp());
 }
 
 void _startSupabaseSync() {
@@ -128,18 +128,27 @@ void _startSupabaseSync() {
   }
 }
 
-class VexraApp extends StatelessWidget {
-  const VexraApp({super.key});
+class SchedulerApp extends StatelessWidget {
+  const SchedulerApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'VEXRA',
+      title: 'Scheduler',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF6C63FF),
-          brightness: Brightness.dark,
+        fontFamily: 'Inter', // Or any default system sans-serif if not bundled
+        colorScheme: const ColorScheme.dark(
+          primary: Color(0xFF00E5FF),
+          secondary: Color(0xFF6C63FF),
+          surface: Color(0xFF1C1C22),
+          background: Color(0xFF0F0F13),
+        ),
+        scaffoldBackgroundColor: const Color(0xFF0F0F13),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF0F0F13),
+          elevation: 0,
+          centerTitle: false,
         ),
         useMaterial3: true,
       ),
@@ -148,21 +157,35 @@ class VexraApp extends StatelessWidget {
         return Stack(
           children: [
             if (child != null) child,
-            IgnorePointer(
-              child: Center(
-                child: Transform.rotate(
-                  angle: -0.2, // ~11 degrees rotation
-                  child: const Opacity(
-                    opacity: 0.15,
-                    child: Text(
-                      '© VEXRA Tech',
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
+            // Elegant subtle watermark at the bottom center
+            Positioned(
+              bottom: 16,
+              left: 0,
+              right: 0,
+              child: IgnorePointer(
+                child: SafeArea(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Opacity(
+                        opacity: 0.2,
+                        child: Image.asset('logo.png', width: 14, height: 14, fit: BoxFit.contain),
                       ),
-                    ),
+                      const SizedBox(width: 6),
+                      const Opacity(
+                        opacity: 0.2,
+                        child: Text(
+                          '© VEXRA Tech',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                            letterSpacing: 1.2,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
